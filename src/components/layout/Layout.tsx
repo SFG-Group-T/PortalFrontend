@@ -26,6 +26,7 @@ import MeetingRoomIcon from '@mui/icons-material/MeetingRoom';
 import BuildIcon from '@mui/icons-material/Build';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import LogoutIcon from '@mui/icons-material/Logout';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
@@ -63,13 +64,27 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     setDrawerOpen(open);
   };
 
+  // Base menu items for all users
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'Timetable', icon: <CalendarTodayIcon />, path: '/timetable' },
-    { text: 'Room Booking', icon: <MeetingRoomIcon />, path: '/booking' },
     { text: 'Maintenance', icon: <BuildIcon />, path: '/maintenance' },
     { text: 'Notifications', icon: <NotificationsIcon />, path: '/notifications' },
   ];
+
+  // Student-specific menu items
+  if (isStudent) {
+    menuItems.push(
+      { text: 'Room Booking', icon: <MeetingRoomIcon />, path: '/booking' }
+    );
+  }
+
+  // Lecturer-specific menu items
+  if (isLecturer) {
+    menuItems.push(
+      { text: 'Student Appointments', icon: <EventNoteIcon />, path: '/lecturer/bookings' }
+    );
+  }
 
   // Admin-only menu items
   if (isAdmin) {

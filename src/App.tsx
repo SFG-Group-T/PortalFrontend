@@ -12,8 +12,9 @@ import Register from './components/auth/Register';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 
-// New page imports (to be created)
+// Page imports
 import BookingPage from './pages/BookingPage';
+import LecturerBookingPage from './pages/LecturerBookingPage';
 import TimetablePage from './pages/TimetablePage';
 import MaintenancePage from './pages/MaintenancePage';
 import NotificationsPage from './pages/NotificationsPage';
@@ -44,7 +45,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles 
 };
 
 const AppContent: React.FC = () => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, user } = useAuth();
 
   return (
     <Router>
@@ -63,10 +64,20 @@ const AppContent: React.FC = () => {
           </ProtectedRoute>
         } />
 
+        {/* Student booking route */}
         <Route path="/booking" element={
-          <ProtectedRoute allowedRoles={['student', 'lecturer', 'admin']}>
+          <ProtectedRoute allowedRoles={['student', 'admin']}>
             <Layout>
               <BookingPage />
+            </Layout>
+          </ProtectedRoute>
+        } />
+
+        {/* Lecturer booking management route */}
+        <Route path="/lecturer/bookings" element={
+          <ProtectedRoute allowedRoles={['lecturer', 'admin']}>
+            <Layout>
+              <LecturerBookingPage />
             </Layout>
           </ProtectedRoute>
         } />

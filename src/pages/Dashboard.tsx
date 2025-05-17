@@ -21,6 +21,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import { useAuth } from '../contexts/AuthContext';
 import { Link } from 'react-router-dom';
 import GridItem from '../components/common/GridItem';
+import LecturerBookingSummary from '../components/booking/LecturerBookingSummary';
 
 const Dashboard: React.FC = () => {
   const { user, isAdmin, isLecturer, isStudent } = useAuth();
@@ -164,6 +165,9 @@ const Dashboard: React.FC = () => {
         </Paper>
       </GridItem>
       <GridItem xs={12} md={6}>
+        <LecturerBookingSummary />
+      </GridItem>
+      <GridItem xs={12} md={12}>
         <Paper sx={{ p: 2, height: '100%' }}>
           <Typography variant="h6" gutterBottom>
             Faculty Resources
