@@ -80,42 +80,77 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const drawer = (
     <Box
-      sx={{ width: 250 }}
+      sx={{ 
+        width: 250, 
+        height: '100%',
+        backgroundColor: '#000000',
+        color: '#ffffff'
+      }}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
       <Box sx={{ p: 2 }}>
-        <Typography variant="h6" component="div">
+        <Typography variant="h6" component="div" sx={{ color: '#ffffff' }}>
           Smart Campus Portal
         </Typography>
         {user && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: '#ffffff', opacity: 0.7 }}>
             {user.username} ({user.role})
           </Typography>
         )}
       </Box>
-      <Divider />
+      <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }} />
       <List>
         {menuItems.map((item) => (
-          <ListItemButton key={item.text} component={Link} to={item.path}>
-            <ListItemIcon>{item.icon}</ListItemIcon>
-            <ListItemText primary={item.text} />
+          <ListItemButton 
+            key={item.text} 
+            component={Link} 
+            to={item.path}
+            sx={{ 
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              },
+              '&.Mui-selected': {
+                backgroundColor: 'rgba(255, 255, 255, 0.15)',
+              }
+            }}
+          >
+            <ListItemIcon sx={{ color: '#ffffff' }}>{item.icon}</ListItemIcon>
+            <ListItemText 
+              primary={item.text} 
+              primaryTypographyProps={{ sx: { color: '#ffffff' } }}
+            />
           </ListItemButton>
         ))}
       </List>
-      <Divider />
+      <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.2)' }} />
       <List>
-        <ListItemButton onClick={handleLogout}>
-          <ListItemIcon><LogoutIcon /></ListItemIcon>
-          <ListItemText primary="Logout" />
+        <ListItemButton 
+          onClick={handleLogout}
+          sx={{ 
+            '&:hover': {
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            }
+          }}
+        >
+          <ListItemIcon sx={{ color: '#ffffff' }}><LogoutIcon /></ListItemIcon>
+          <ListItemText 
+            primary="Logout" 
+            primaryTypographyProps={{ sx: { color: '#ffffff' } }}
+          />
         </ListItemButton>
       </List>
     </Box>
   );
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      minHeight: '100vh',
+      backgroundColor: '#e6e8fc' 
+    }}>
       <AppBar position="static">
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -193,11 +228,21 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         anchor="left"
         open={drawerOpen}
         onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            backgroundColor: '#000000',
+            color: '#ffffff'
+          }
+        }}
       >
         {drawer}
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ 
+        flexGrow: 1, 
+        p: 3, 
+        backgroundColor: '#e6e8fc' 
+      }}>
         {children}
       </Box>
 
@@ -207,10 +252,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           py: 3,
           px: 2,
           mt: 'auto',
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[200]
-              : theme.palette.grey[800],
+          backgroundColor: (theme) => theme.palette.primary.main,
+          color: (theme) => theme.palette.primary.contrastText,
         }}
       >
         <Container maxWidth="sm">

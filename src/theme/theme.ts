@@ -15,7 +15,7 @@ const theme = createTheme({
       contrastText: '#ffffff',
     },
     background: {
-      default: '#f5f5f5',
+      default: '#e6e8fc', // Light lavender/blue background color
       paper: '#ffffff', // White for cards
     },
   },
@@ -23,7 +23,8 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
+          borderRadius: 8,
         },
       },
     },
@@ -31,6 +32,9 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#ffffff',
+          boxShadow: '0 4px 8px rgba(0,0,0,0.15)',
+          borderRadius: 8,
+          border: '1px solid rgba(0,0,0,0.1)',
         },
       },
     },
@@ -38,6 +42,29 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: '#000000',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 6,
+          textTransform: 'none',
+          fontWeight: 600,
+        },
+        contained: {
+          boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+          '&:hover': {
+            boxShadow: '0 4px 10px rgba(0,0,0,0.25)',
+          },
+        },
+      },
+    },
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          backgroundColor: '#e6e8fc',
         },
       },
     },

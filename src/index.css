@@ -5,9 +5,20 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #e6e8fc;
+}
+
+html {
+  background-color: #e6e8fc;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Apply background color to all container elements */
+#root {
+  background-color: #e6e8fc;
+  min-height: 100vh;
 }
