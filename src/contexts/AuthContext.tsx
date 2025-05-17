@@ -76,9 +76,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   };
 
   const isAuthenticated = !!user;
-  const isAdmin = user?.role === 'ADMIN';
-  const isLecturer = user?.role === 'LECTURER';
-  const isStudent = user?.role === 'STUDENT';
+  const isAdmin = user?.role?.toLowerCase() === 'admin';
+  const isLecturer = user?.role?.toLowerCase() === 'lecturer';
+  const isStudent = user?.role?.toLowerCase() === 'student';
 
   const value = {
     user,

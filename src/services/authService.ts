@@ -8,19 +8,19 @@ const MOCK_USERS = {
     username: 'admin',
     password: 'admin123',
     token: 'mock-admin-token',
-    role: 'ADMIN'
+    role: 'admin'
   },
   lecturer: {
     username: 'lecturer',
     password: 'lecturer123',
     token: 'mock-lecturer-token',
-    role: 'LECTURER'
+    role: 'lecturer'
   },
   student: {
     username: 'student',
     password: 'student123',
     token: 'mock-student-token',
-    role: 'STUDENT'
+    role: 'student'
   }
 };
 

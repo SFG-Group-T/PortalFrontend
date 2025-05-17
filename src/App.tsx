@@ -10,15 +10,35 @@ import Register from './components/auth/Register';
 import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 
-// Protected route component
-const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { isAuthenticated, loading } = useAuth();
+// New page imports (to be created)
+import BookingPage from './pages/BookingPage';
+import TimetablePage from './pages/TimetablePage';
+import MaintenancePage from './pages/MaintenancePage';
+import NotificationsPage from './pages/NotificationsPage';
+import AdminPage from './pages/AdminPage';
+
+// Role-based protected route component
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  allowedRoles?: string[];
+}
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children, allowedRoles }) => {
+  const { isAuthenticated, loading, user } = useAuth();
   
   if (loading) {
     return <div>Loading...</div>;
   }
   
-  return isAuthenticated ? <>{children}</> : <Navigate to="/login" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  if (allowedRoles && user?.role && !allowedRoles.includes(user.role)) {
+    return <Navigate to="/dashboard" />;
+  }
+  
+  return <>{children}</>;
 };
 
 // Create theme
@@ -76,15 +96,58 @@ const AppContent: React.FC = () => {
         <Route path="/login" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} />
         <Route path="/register" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Register />} />
         
-        {/* Protected routes */}
+        {/* Protected routes - Student & Lecturer */}
         <Route path="/dashboard" element={
-          <ProtectedRoute>
+          <ProtectedRoute allowedRoles={['student', 'lecturer', 'admin']}>
             <Layout>
               <Dashboard />
             </Layout>
           </ProtectedRoute>
         } />
-        {/* Add more protected routes as needed */}
+
+        <Route path="/booking" element={
+          <ProtectedRoute allowedRoles={['student', 'lecturer', 'admin']}>
+            <Layout>
+              <BookingPage />
+            </Layout>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/timetable" element={
+          <ProtectedRoute allowedRoles={['student', 'lecturer', 'admin']}>
+            <Layout>
+              <TimetablePage />
+            </Layout>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/maintenance" element={
+          <ProtectedRoute allowedRoles={['student', 'lecturer', 'admin']}>
+            <Layout>
+              <MaintenancePage />
+            </Layout>
+          </ProtectedRoute>
+        } />
+
+        <Route path="/notifications" element={
+          <ProtectedRoute allowedRoles={['student', 'lecturer', 'admin']}>
+            <Layout>
+              <NotificationsPage />
+            </Layout>
+          </ProtectedRoute>
+        } />
+
+        {/* Admin only routes */}
+        <Route path="/admin" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <Layout>
+              <AdminPage />
+            </Layout>
+          </ProtectedRoute>
+        } />
+
+        {/* Catch all route */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
   );
