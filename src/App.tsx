@@ -114,6 +114,13 @@ const AppContent: React.FC = () => {
             </Layout>
           </ProtectedRoute>
         } />
+        <Route path="/admin/dashboard" element={
+          <ProtectedRoute allowedRoles={['admin']}>
+            <Layout>
+              <AdminPage />
+            </Layout>
+          </ProtectedRoute>
+        } />
 
         {/* Catch all route */}
         <Route path="*" element={<Navigate to="/" replace />} />

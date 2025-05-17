@@ -5,18 +5,21 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8080';
 // Mock user data for development
 const MOCK_USERS = {
   admin: {
+    id: '1',
     username: 'admin',
     password: 'admin123',
     token: 'mock-admin-token',
     role: 'admin'
   },
   lecturer: {
+    id: '2',
     username: 'lecturer',
     password: 'lecturer123',
     token: 'mock-lecturer-token',
     role: 'lecturer'
   },
   student: {
+    id: '3',
     username: 'student',
     password: 'student123',
     token: 'mock-student-token',
@@ -33,6 +36,7 @@ interface LoginRequest {
 }
 
 interface LoginResponse {
+  id?: string;
   token: string;
   role: string;
   username: string;
@@ -78,6 +82,7 @@ const login = async (credentials: LoginRequest): Promise<LoginResponse> => {
         
         if (mockUser) {
           const userData = {
+            id: mockUser.id,
             token: mockUser.token,
             role: mockUser.role,
             username: mockUser.username

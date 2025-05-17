@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import authService from '../services/authService';
 
 interface User {
+  id?: string;
   token: string;
   role: string;
   username: string;
